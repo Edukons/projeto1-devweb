@@ -22,7 +22,6 @@ function mostrarDados() {
     dados.value = "Nome: " + nome  + "Senha: " + senha  + "Email: " + email  + "Endereço: " + endereco  + "Biografia: " + biografia + "Cidade:" + cidade + "Estado:" + estado + "Data de nascimento:" + data_nascimento;
     document.getElementById("dados").innerHTML = dados.value;
   } 
-  
 }
 </script>
 
