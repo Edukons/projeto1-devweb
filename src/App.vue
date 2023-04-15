@@ -95,7 +95,6 @@ function mostrarDados() {
 
 
 <style scoped>
-/* Estilos para o formulário */
 template{
   background-color: black;
 }
