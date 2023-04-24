@@ -1,60 +1,69 @@
 <script>
 import { ref } from 'vue'
 
-const dados = ref('')
-
-function mostrarDados() {
-  const nome = document.getElementById("nome").value;
-  const senha = document.getElementById("senha").value;
-  const confirma_senha = document.getElementById("confirma_senha").value;
-  const email = document.getElementById("email").value;
-  const biografia = document.getElementById("biografia").value;
-  const endereco = document.getElementById("endereco").value;
-  const data_nascimento = document.getElementById("data_nascimento").value;
-  const cidade = document.getElementById("cidade").value;
-  const estado = document.getElementById("estado").value;
-
-  if (nome === "" || senha === "" || confirma_senha === "" || email === "" || biografia === "" || endereco === "" || cidade === "" || estado === "" || data_nascimento === "")  {
-    alert("Por favor, preencha todos os campos!");
-  } else if (senha != confirma_senha) {
-    alert("As senhas não coincidem!");
-  } else {
-    dados.value = "Nome: " + nome  + "Senha: " + senha  + "Email: " + email  + "Endereço: " + endereco  + "Biografia: " + biografia + "Cidade:" + cidade + "Estado:" + estado + "Data de nascimento:" + data_nascimento;
-    document.getElementById("dados").innerHTML = dados.value;
-  } 
+export default {
+  data() {
+    return {
+      dados: '',
+      nome: '',
+      senha: '',
+      confirma_senha: '',
+      email: '',
+      biografia: '',
+      endereco: '',
+      data_nascimento: '',
+      cidade: '',
+      estado: '',
+      dadosExibidos: false
+    }
+  },
+  methods: {
+    mostrarDados() {
+      if (this.nome === "" || this.senha === "" || this.confirma_senha === "" || this.email === "" || this.biografia === "" || this.endereco === "" || this.cidade === "" || this.estado === "" || this.data_nascimento === "") {
+        alert("Por favor, preencha todos os campos!");
+      } else if (this.senha !== this.confirma_senha) {
+        alert("As senhas não coincidem!");
+      } else {
+        this.dados = "Nome: " + this.nome + "Senha: " + this.senha + " Email: " + this.email + " Endereço: " +
+          this.endereco + " Biografia: " + this.biografia + " Cidade:" + this.cidade + " Estado:" + this.estado +
+          " Data de nascimento:" + this.data_nascimento;
+        this.dadosExibidos = true;
+      }
+    }
+  }
 }
 </script>
 
 <template>
-  
   <form @submit.prevent="mostrarDados">
     <h1>Formulário de Cadastro</h1>
     <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" minlength="3" maxlength="20" required>
+    <input type="text" v-model="nome" minlength="3" maxlength="20" placeholder="Digite seu nome" autocomplete="on"
+      required>
 
     <label for="email">E-mail:</label>
-    <input type="email" id="email" name="email" required>
+    <input type="email" v-model="email" placeholder="id@domínio.com" autocomplete="on" required>
 
     <label for="senha">Senha:</label>
-    <input type="password" id="senha" name="senha" minlength="6" required>
+    <input type="password" v-model="senha" placeholder="Senha" minlength="6" autocomplete="on" required>
 
     <label for="confirma_senha">Confirme a Senha:</label>
-    <input type="password" id="confirma_senha" name="confirma_senha" minlength="6" required>
-
-    <label for="data_nascimento">Data de Nascimento:</label>
-    <input type="date" id="data_nascimento" name="data_nascimento" required>
+    <input type="password" v-model="confirma_senha" placeholder="Confirme sua senha" minlength="6" autocomplete="on" required>
 
     <label for="endereco">Endereço:</label>
-    <input type="text" id="endereco" name="endereco" required>
+    <input type="text" v-model="endereco" autocomplete="on" placeholder="Seu endereço" required>
 
     <label for="biografia">Biografia:</label>
-    <input type="text" id="biografia" name="biografia" required>
+    <input type="text" v-model="biografia" placeholder="Biografia" autocomplete="on" maxlength="80" required>
 
     <label for="cidade">Cidade:</label>
-    <input type="text" id="cidade" name="cidade" required>
+    <input type="text" v-model="cidade" placeholder="Cidade" autocomplete="on" required>
+
+    <label for="data_nascimento">Data de Nascimento:</label>
+    <input type="date" v-model="data_nascimento" autocomplete="on" required>
 
     <label for="estado">Estado:</label>
-    <select id="estado" name="estado" required>
+    <select v-model="estado" required>
       <option value="">Selecione o Estado</option>
       <option value="AC">Acre</option>
       <option value="AL">Alagoas</option>
@@ -88,38 +97,62 @@ function mostrarDados() {
     <button type="submit">Mostrar Dados</button>
     <div id="dados"></div>
 
+    <div v-if="dadosExibidos">
+      <h2>Dados do Formulário</h2>
+      <p><strong>Nome:</strong> {{ nome }}</p>
+      <p><strong>Nasceu em:</strong> {{ data_nascimento }}</p>
+      <p><strong>Biografia:</strong> {{ biografia }}</p>
+      <p><strong>Email:</strong> {{ email }}</p>
+      <p><strong>Senha:</strong> {{ senha }}</p>
+      <p><strong>Endereço:</strong> {{ endereco }}</p>
+      <p><strong>Cidade:</strong> {{ cidade }}</p>
+      <p><strong>Estado:</strong> {{ estado }}</p>
+    </div>
   </form>
 </template>
 
 
 
 <style scoped>
-template{
+body {
   background-color: black;
 }
+
 label,
 select {
   display: block;
   text-align: center;
   margin-right: 10px;
 }
-form{
+
+form {
   background-color: orangered;
   display: block;
-  width: 500px;
+  width: 600px;
+  height: 650px;
   text-align: center;
   border-radius: 10px;
-  
+  margin-left: 50%;
 }
-input,option{
+
+input,
+option {
   margin-bottom: 10px;
   text-align: center;
   border-radius: 10px;
 
 }
-select{
+
+button {
+  background-color: black;
+  color: aliceblue;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+select {
   text-align: center;
   border-radius: 10px;
-  margin-left: 175px;
+  margin-left: 230px;
 }
 </style>
