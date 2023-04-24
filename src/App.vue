@@ -14,6 +14,8 @@ export default {
       data_nascimento: '',
       cidade: '',
       estado: '',
+      hobbies: '',
+      linguagens: [],
       dadosExibidos: false
     }
   },
@@ -48,13 +50,14 @@ export default {
     <input type="password" v-model="senha" placeholder="Senha" minlength="6" autocomplete="on" required>
 
     <label for="confirma_senha">Confirme a Senha:</label>
-    <input type="password" v-model="confirma_senha" placeholder="Confirme sua senha" minlength="6" autocomplete="on" required>
+    <input type="password" v-model="confirma_senha" placeholder="Confirme sua senha" minlength="6" autocomplete="on"
+      required>
 
     <label for="endereco">Endereço:</label>
     <input type="text" v-model="endereco" autocomplete="on" placeholder="Seu endereço" required>
 
     <label for="biografia">Biografia:</label>
-    <input type="text" v-model="biografia" placeholder="Biografia" autocomplete="on" maxlength="80" required>
+    <textarea type="text" v-model="biografia" autocomplete="on"  required></textarea>
 
     <label for="cidade">Cidade:</label>
     <input type="text" v-model="cidade" placeholder="Cidade" autocomplete="on" required>
@@ -94,10 +97,17 @@ export default {
       <option value="TO">Tocantins</option>
     </select>
 
+    <Div>
+      <label for="linguagens">Linguagens de Programação</label>
+      <input type="checkbox" v-model="linguagens" value="CSS" /> CSS
+      <input type="checkbox" v-model="linguagens" value="JS" /> JS
+      <input type="checkbox" v-model="linguagens" value="HTML" /> HTML
+    </Div>
+
     <button type="submit">Mostrar Dados</button>
     <div id="dados"></div>
 
-    <div v-if="dadosExibidos">
+    <div v-if="dadosExibidos" id="dadosFinais">
       <h2>Dados do Formulário</h2>
       <p><strong>Nome:</strong> {{ nome }}</p>
       <p><strong>Nasceu em:</strong> {{ data_nascimento }}</p>
@@ -107,6 +117,8 @@ export default {
       <p><strong>Endereço:</strong> {{ endereco }}</p>
       <p><strong>Cidade:</strong> {{ cidade }}</p>
       <p><strong>Estado:</strong> {{ estado }}</p>
+      <p><strong>Linguagens de programação:</strong> {{ linguagens[0] }}, {{ linguagens[1] }}, {{ linguagens[2] }}</p>
+
     </div>
   </form>
 </template>
@@ -114,6 +126,10 @@ export default {
 
 
 <style scoped>
+.dadosFinais {
+  margin-right: 0%;
+}
+
 body {
   background-color: black;
 }
@@ -129,7 +145,7 @@ form {
   background-color: orangered;
   display: block;
   width: 600px;
-  height: 650px;
+  height: 950px;
   text-align: center;
   border-radius: 10px;
   margin-left: 50%;
